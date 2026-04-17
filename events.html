@@ -252,7 +252,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
       /* Build track: half-A + half-B (identical) so translateX(-50%) loops seamlessly */
       var track = document.createElement('div');
-      track.style.cssText = 'display:inline-flex;align-items:center;will-change:transform;';
+      track.style.cssText = 'display:inline-flex;align-items:center;gap:42px;will-change:transform;';
       for (var i = 0; i < perHalf * 2; i++) {
         track.appendChild(template.cloneNode(true));
       }

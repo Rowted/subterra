@@ -128,11 +128,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 /* Cards */
 .support-cards-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
   max-width: 1200px;
   margin: 32px auto 80px;
   padding: 0 5vw;
+}
+.support-cards-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  background: transparent;
+}
+.support-cards-or span {
+  font-family: "roc-grotesk-condensed", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
 }
 .support-card {
   background: #1d1d1d;
@@ -148,6 +163,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 @media (max-width: 767px) {
   .support-cards-wrapper {
     grid-template-columns: 1fr;
+  }
+  .support-cards-or {
+    padding: 16px 0;
   }
   .support-card {
     padding: 36px 5vw 44px;
@@ -259,6 +277,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cb5089d67da886b36f057_black-arrow.svg" loading="lazy" alt="" class="black-arrow">
     </a>
   </div>
+
+  <div class="support-cards-or"><span>or</span></div>
 
   <div class="support-card support-card--alt">
     <div class="support-card-tag">One-time</div>

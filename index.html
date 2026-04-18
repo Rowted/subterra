@@ -160,15 +160,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   flex-shrink: 0;
   position: relative;
 }
+
+/* Button on yellow bg: invert to black ellipse, different animation */
+@keyframes ellipse-rock-dark {
+  0%   { transform: rotate(20deg); }
+  100% { transform: rotate(-20deg); }
+}
+.culture-cta .white-outline-button {
+  filter: invert(1);
+  animation: ellipse-rock-dark 4.5s ease-in-out infinite alternate;
+}
+.culture-cta .button-text {
+  color: var(--subterra-black, #2a2a2a);
+}
+
 @media (max-width: 767px) {
+  .culture-section {
+    padding: 36px 5vw;
+  }
   .culture-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 28px;
   }
   .culture-left {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
+  }
+  .culture-heading {
+    white-space: normal;
+    font-size: clamp(2.8rem, 14vw, 4rem);
+  }
+  .culture-blurb {
+    max-width: 100%;
+    font-size: 0.88rem;
   }
 }
 </style>

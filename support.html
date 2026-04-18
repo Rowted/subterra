@@ -107,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 .support-h1 {
   font-family: "roc-grotesk-condensed", sans-serif;
-  font-size: clamp(4rem, 13vw, 11rem);
+  font-size: 120px;
   font-weight: 700;
   line-height: 0.85;
   text-transform: uppercase;
@@ -115,6 +115,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   margin: 0 0 20px;
   padding: 0 0 0 5vw;
 }
+@media (max-width: 991px) { .support-h1 { font-size: 80px; } }
+@media (max-width: 767px) { .support-h1 { font-size: 60px; padding: 0; } }
 .support-sub {
   font-family: "roc-grotesk", sans-serif;
   font-size: 1rem;
@@ -170,10 +172,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .support-card {
     padding: 36px 5vw 44px;
   }
-  .support-h1 {
-    font-size: clamp(3.5rem, 16vw, 5rem);
-    padding: 0;
-  }
+
   .support-sub {
     padding: 0;
   }

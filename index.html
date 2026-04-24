@@ -186,19 +186,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 .movement-cta {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   margin-top: 40px;
   display: inline-flex;
+  align-items: center;
   background-image: none !important;
-  background-color: #fff;
-  border-radius: 100px;
-  padding: 28px 48px;
+  background-color: var(--subterra-yellow, #d5ce43);
+  border-radius: 4px;
+  padding: 20px 40px;
+  min-width: 0;
+  gap: 12px;
 }
 .movement-cta .button-text {
   color: var(--subterra-black, #2a2a2a);
+  font-family: roc-grotesk, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-.movement-cta .white-outline-button {
-  filter: invert(1);
+.movement-cta .black-arrow {
+  width: 20px;
 }
 .white-ellipse-outline {
   pointer-events: none;

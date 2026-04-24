@@ -110,12 +110,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .mobile-nav-link.mobile-cta:hover { opacity: 0.85; }
 
 @keyframes ellipse-rock {
-  0%   { transform: rotate(-12deg); }
-  100% { transform: rotate(12deg); }
+  0%   { transform: translate(-50%, -50%) rotate(-12deg); }
+  100% { transform: translate(-50%, -50%) rotate(12deg); }
 }
 .white-outline-button {
   animation: ellipse-rock 3s ease-in-out infinite alternate;
   transform-origin: center center;
+  left: 50%;
+  top: 50%;
 }
 .support-hero-cta {
   margin-top: 28px;

@@ -109,31 +109,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 .mobile-nav-link.mobile-cta:hover { opacity: 0.85; }
 
-/* ── Subterra animated button (rebuilt) ── */
+/* ── Subterra animated button — shared component ── */
 @keyframes sb-ellipse {
-  0%   { transform: translate(-50%, -50%) rotate(-12deg); }
-  100% { transform: translate(-50%, -50%) rotate(12deg); }
+  from { transform: rotate(-12deg); }
+  to   { transform: rotate(12deg); }
 }
 .sb-btn {
   position: relative !important;
   overflow: visible !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 }
 .sb-btn::before {
   content: '';
   position: absolute;
-  width: 160%;
-  height: 200%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-12deg);
+  inset: -22% -8%;
   background-image: url('https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681da53d04aad3090d5a64ab_white-ellips-outline-button.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-size: 100% 100%;
   animation: sb-ellipse 3s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;

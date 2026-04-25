@@ -109,20 +109,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 .mobile-nav-link.mobile-cta:hover { opacity: 0.85; }
 
-@keyframes ellipse-rock {
+/* ── Subterra animated button (rebuilt) ── */
+@keyframes sb-ellipse {
   0%   { transform: translate(-50%, -50%) rotate(-12deg); }
   100% { transform: translate(-50%, -50%) rotate(12deg); }
 }
-.button-container {
+.sb-btn {
   position: relative !important;
-  overflow: visible;
+  overflow: visible !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
-.white-outline-button {
-  position: absolute !important;
-  animation: ellipse-rock 3s ease-in-out infinite alternate;
-  transform-origin: center center;
-  left: 50% !important;
-  top: 50% !important;
+.sb-btn::before {
+  content: '';
+  position: absolute;
+  width: 160%;
+  height: 200%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  background-image: url('https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681da53d04aad3090d5a64ab_white-ellips-outline-button.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: sb-ellipse 3s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+.sb-btn .button-text,
+.sb-btn .black-arrow {
+  position: relative;
+  z-index: 1;
 }
 .support-hero-cta {
   margin-top: 28px;
@@ -304,8 +323,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Your name in our credits</li>
       <li>The good feeling of doing something real</li>
     </ul>
-    <a href="https://buy.stripe.com/6oU9ATcQ99jLdUs9OZgjC01" target="_blank" rel="noopener" class="button-container w-inline-block support-signup-btn">
-      <img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681da53d04aad3090d5a64ab_white-ellips-outline-button.svg" loading="lazy" alt="" class="white-outline-button">
+    <a href="https://buy.stripe.com/6oU9ATcQ99jLdUs9OZgjC01" target="_blank" rel="noopener" class="button-container w-inline-block support-signup-btn sb-btn">
       <div class="button-text">Sign up</div>
       <img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cb5089d67da886b36f057_black-arrow.svg" loading="lazy" alt="" class="black-arrow">
     </a>

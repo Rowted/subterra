@@ -113,11 +113,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   0%   { transform: translate(-50%, -50%) rotate(-12deg); }
   100% { transform: translate(-50%, -50%) rotate(12deg); }
 }
+.button-container {
+  position: relative !important;
+  overflow: visible;
+}
 .white-outline-button {
+  position: absolute !important;
   animation: ellipse-rock 3s ease-in-out infinite alternate;
   transform-origin: center center;
-  left: 50%;
-  top: 50%;
+  left: 50% !important;
+  top: 50% !important;
 }
 .support-hero-cta {
   margin-top: 28px;

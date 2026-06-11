@@ -307,17 +307,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gap: 10px 22px;
   flex-wrap: wrap;
 }
-.nos-banner-free {
-  font-family: roc-grotesk-condensed, sans-serif;
-  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+.nos-banner-btn {
+  font-family: roc-grotesk, sans-serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
   font-weight: 700;
-  line-height: 1;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  line-height: 1;
   color: #fff;
   background-color: #149B7F;
-  padding: 7px 16px;
+  padding: 14px 28px;
   border-radius: 999px;
+  flex-shrink: 0;
+  transition: background-color .15s ease;
 }
+.nos-banner:hover .nos-banner-btn { background-color: #0D8269; }
 .nos-banner-meta {
   font-family: roc-grotesk, sans-serif;
   font-size: clamp(0.85rem, 1.6vw, 1.05rem);
@@ -326,12 +330,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   text-transform: uppercase;
   color: #fff;
 }
-.nos-banner-arrow {
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
-  color: #fff;
-  flex-shrink: 0;
-  line-height: 1;
-}
 .nos-banner-blob {
   position: absolute;
   z-index: 1;
@@ -339,8 +337,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   opacity: 0.7;
 }
 .nos-banner-blob img { width: 100%; height: auto; display: block; }
-.nos-banner-blob.left  { width: clamp(180px, 24vw, 420px); left: -3%;  top: -150%; transform: rotate(-25deg); }
-.nos-banner-blob.right { width: clamp(180px, 24vw, 420px); right: -3%; bottom: -160%; transform: rotate(150deg); }
+.nos-banner-blob.left  { width: clamp(280px, 38vw, 640px); left: -6%;  top: -220%; transform: rotate(-25deg); }
+.nos-banner-blob.right { width: clamp(280px, 38vw, 640px); right: -6%; bottom: -240%; transform: rotate(150deg); }
 
 @media (max-width: 700px) {
   .nos-banner-inner {
@@ -351,8 +349,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .nos-banner-logo { width: 180px; }
   .nos-banner-text { justify-content: center; }
-  .nos-banner-arrow { display: none; }
-  .nos-banner-blob { opacity: 0.3; }
+  .nos-banner-btn { margin-top: 4px; }
+  .nos-banner-blob { opacity: 0.4; }
 }
 </style>
 
@@ -362,10 +360,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="nos-banner-inner">
     <img src="images/nature-of-sound/logo-white.svg" alt="Nature of Sound" class="nos-banner-logo">
     <div class="nos-banner-text">
-      <span class="nos-banner-free">Free festival</span>
       <span class="nos-banner-meta">19.07.2026 &nbsp;·&nbsp; Lapinlahti, Helsinki &nbsp;·&nbsp; 12–22</span>
     </div>
-    <span class="nos-banner-arrow">→</span>
+    <span class="nos-banner-btn">View festival →</span>
   </div>
 </a><div class="large-ellipse header"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/683deec479ac8599f84f4ea1_ellipse-big-2.svg" loading="lazy" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-1.54652deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: transform;" alt="" class="ellipse-header"></div><div class="w-layout-blockcontainer div-h1 w-container"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cab8bcf74e2595244ab15_Subterra-Header-home.svg" loading="lazy" alt="" class="header-image"><div class="text-scale-wrapper"><div class="w-embed"><div class="text-scale-content">
   We are a culture &amp;<br>

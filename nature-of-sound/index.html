@@ -85,6 +85,13 @@
   position: absolute; z-index: 1; pointer-events: none; user-select: none;
 }
 .nos-blob img { width: 100%; height: auto; display: block; }
+/* Tone-on-tone animated S for teal sections (darker teal variant) */
+.nos-bg-s {
+  top: 50%; left: 50%;
+  width: 120vmax;
+  transform: translate(-50%, -50%);
+  animation: nos-spin 240s linear infinite;
+}
 
 /* ── Hero ── */
 .nos-hero {
@@ -103,7 +110,7 @@
 }
 .nos-hero-blob-center {
   top: 50%; left: 50%;
-  width: 230vmax;
+  width: 160vmax;
   transform: translate(-50%, -50%);
   animation: nos-spin 240s linear infinite;
   opacity: 1;
@@ -193,18 +200,19 @@
 @media (max-width: 900px) { .nos-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ── Activities ── */
-.nos-activities { background: var(--nos-white); color: var(--nos-blue); }
+.nos-activities { background: var(--nos-teal); color: var(--nos-white); }
 .nos-act-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 16px; }
 .nos-act-card {
-  border: 2px solid var(--nos-blue); border-radius: 10px; padding: 34px 28px;
+  background: var(--nos-white); color: var(--nos-blue);
+  border-radius: 10px; padding: 34px 28px;
 }
+.nos-act-card h3, .nos-act-card p { color: var(--nos-blue); }
 .nos-act-card h3 {
   font-family: roc-grotesk-condensed, sans-serif;
   font-size: 1.9rem; font-weight: 700; line-height: 0.95;
   text-transform: uppercase; margin: 0 0 14px;
 }
 .nos-act-card p { font-family: roc-grotesk, sans-serif; font-size: 0.95rem; font-weight: 500; line-height: 1.55; margin: 0; }
-.nos-act-card.teal { background: var(--nos-teal); border-color: var(--nos-teal); color: var(--nos-white); }
 @media (max-width: 860px) { .nos-act-grid { grid-template-columns: 1fr; } }
 
 /* ── Lineup ── */
@@ -233,7 +241,7 @@
 @media (max-width: 860px) { .nos-artist-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
 
 /* ── Info / partners ── */
-.nos-info { background: var(--nos-teal); color: var(--nos-white); padding: 70px 5vw; }
+.nos-info { background: var(--nos-teal); color: var(--nos-white); padding: 70px 5vw; position: relative; overflow: hidden; }
 .nos-info .nos-inner { display: flex; flex-wrap: wrap; gap: 40px 80px; }
 .nos-info-col { flex: 1 1 320px; }
 .nos-info h4 {
@@ -320,6 +328,7 @@
 
     <!-- ── TIMETABLE ── -->
     <section class="nos-section nos-timetable" id="timetable">
+      <div class="nos-blob nos-bg-s"><img src="../images/nature-of-sound/s-pattern-deep.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-kicker">Sunday 19 July 2026</p>
         <h2 class="nos-h2">Timetable</h2>
@@ -365,11 +374,12 @@
 
     <!-- ── ACTIVITIES ── -->
     <section class="nos-section nos-activities">
+      <div class="nos-blob nos-bg-s"><img src="../images/nature-of-sound/s-pattern-deep.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-kicker">More than music</p>
         <h2 class="nos-h2">Activities</h2>
         <div class="nos-act-grid">
-          <div class="nos-act-card teal">
+          <div class="nos-act-card">
             <h3>Birdhouse workshop</h3>
             <p>Build your own birdhouse and give a Helsinki bird a new home. Hands-on, beginner-friendly and free. Materials provided while they last.</p>
           </div>
@@ -403,6 +413,7 @@
 
     <!-- ── INFO ── -->
     <section class="nos-info" id="info">
+      <div class="nos-blob nos-bg-s"><img src="../images/nature-of-sound/s-pattern-deep.svg" alt=""></div>
       <div class="nos-inner">
         <div class="nos-info-col">
           <h4>Practical info</h4>

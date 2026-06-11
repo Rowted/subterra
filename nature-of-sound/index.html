@@ -56,6 +56,7 @@
 
 /* Shared section scaffolding */
 .nos-section { position: relative; overflow: hidden; padding: 90px 5vw; }
+.nos-hero.nos-section { overflow: visible; position: static; }
 .nos-inner   { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
 .nos-kicker {
   font-family: roc-grotesk, sans-serif;
@@ -92,6 +93,10 @@
   transform: translate(-50%, -50%);
   animation: nos-spin 240s linear infinite;
 }
+
+/* ── Hero + nav wrapper: the S spans both so it isn't cut at the menu ── */
+.nos-top { position: relative; overflow: hidden; background: var(--nos-blue); }
+.nos-top .nav-desktop, .nos-top .nav-mobile { position: relative; z-index: 10; }
 
 /* ── Hero ── */
 .nos-hero {
@@ -286,13 +291,13 @@
 </head><body class="body nos-page">
 
 <div class="section">
+  <div class="nos-top">
   <div class="nav-desktop"><a href="../" class="navbar-brand w-nav-brand"><img loading="lazy" src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681c9ae78a04166309dac829_subterra-logo-vertical.svg" alt="Subterra" class="image"></a><div class="nav-link-container-desktop"><a href="../" class="nav-link">about us</a><a href="../events/" class="nav-link">events</a><a href="../contact/" class="nav-link">contact</a><a href="../support/" class="nav-cta-btn">Become a member</a></div><div class="hamburger-container"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/6841905226305be2d9029d7b_subterra-hamburger.svg" loading="lazy" alt="" class="open"></div><div class="hamburger-container closed"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/68419ef1bce6ae69174d6c1b_close-menu.svg" loading="lazy" alt="" class="closed"></div></div>
   <div class="nav-mobile"><div class="w-layout-vflex mobile-link-container"><a href="../" class="mobile-nav-link">ABOUT</a><a href="../events/" class="mobile-nav-link">EVENTS</a><a href="../contact/" class="mobile-nav-link">CONTACT</a><a href="../support/" class="mobile-nav-link mobile-cta">Become a member</a></div><div class="halftone-overlay"></div></div>
 
-  <main>
+  <div class="nos-blob nos-hero-blob-center"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
     <!-- ── HERO ── -->
     <header class="nos-section nos-hero">
-      <div class="nos-blob nos-hero-blob-center"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-presents">Subterra ry. presents</p>
         <img src="../images/nature-of-sound/logo-white.svg" alt="Nature of Sound" class="nos-logo">
@@ -305,7 +310,9 @@
         <a href="#lineup" class="nos-hero-cta">Explore ↓</a>
       </div>
     </header>
+  </div><!-- /nos-top -->
 
+  <main>
     <!-- ── ABOUT ── -->
     <section class="nos-section nos-about">
       <div class="nos-inner nos-about-grid">

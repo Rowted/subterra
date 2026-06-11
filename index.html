@@ -273,7 +273,101 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </style>
 
-</head><body class="body"><div class="section"><div class="nav-desktop"><a href="./" aria-current="page" class="navbar-brand w-nav-brand w--current"><img loading="lazy" src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681c9ae78a04166309dac829_subterra-logo-vertical.svg" alt="" class="image"></a><div class="nav-link-container-desktop"><a href="./" aria-current="page" class="nav-link w--current">about us</a><a href="events/" class="nav-link">events</a><a href="contact/" class="nav-link">contact</a><a href="support/" class="nav-cta-btn">Become a member</a></div><div class="hamburger-container"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/6841905226305be2d9029d7b_subterra-hamburger.svg" loading="lazy" alt="" class="open"></div><div class="hamburger-container closed"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/68419ef1bce6ae69174d6c1b_close-menu.svg" loading="lazy" alt="" class="closed"></div></div><div class="nav-mobile"><div class="w-layout-vflex mobile-link-container"><a href="./" aria-current="page" class="mobile-nav-link w--current" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">ABOUT</a><a href="events/" class="mobile-nav-link" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">EVENTS</a><a href="contact/" class="mobile-nav-link" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">CONTACT</a><a href="support/" class="mobile-nav-link mobile-cta">Become a member</a></div><div class="halftone-overlay"></div></div><div class="large-ellipse header"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/683deec479ac8599f84f4ea1_ellipse-big-2.svg" loading="lazy" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-1.54652deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: transform;" alt="" class="ellipse-header"></div><div class="w-layout-blockcontainer div-h1 w-container"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cab8bcf74e2595244ab15_Subterra-Header-home.svg" loading="lazy" alt="" class="header-image"><div class="text-scale-wrapper"><div class="w-embed"><div class="text-scale-content">
+<style>
+/* ── Nature of Sound 2026 announcement banner ── */
+.nos-banner {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background-color: #4666D7;
+  text-decoration: none;
+  z-index: 20;
+  transition: filter .2s ease;
+}
+.nos-banner:hover { filter: brightness(1.07); }
+.nos-banner-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 22px 5vw;
+}
+.nos-banner-logo {
+  width: clamp(150px, 18vw, 230px);
+  height: auto;
+  flex-shrink: 0;
+}
+.nos-banner-text {
+  display: flex;
+  align-items: baseline;
+  gap: 10px 22px;
+  flex-wrap: wrap;
+}
+.nos-banner-free {
+  font-family: roc-grotesk-condensed, sans-serif;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #149B7F;
+  padding: 7px 16px;
+  border-radius: 999px;
+}
+.nos-banner-meta {
+  font-family: roc-grotesk, sans-serif;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.nos-banner-arrow {
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  color: #fff;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.nos-banner-blob {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.55;
+}
+.nos-banner-blob img { width: 100%; height: auto; display: block; }
+.nos-banner-blob.left  { width: clamp(120px, 16vw, 260px); left: -4%;  top: -120%; transform: rotate(-25deg); }
+.nos-banner-blob.right { width: clamp(120px, 16vw, 260px); right: -4%; bottom: -130%; transform: rotate(150deg); }
+
+@media (max-width: 700px) {
+  .nos-banner-inner {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 6vw;
+    text-align: center;
+  }
+  .nos-banner-logo { width: 180px; }
+  .nos-banner-text { justify-content: center; }
+  .nos-banner-arrow { display: none; }
+  .nos-banner-blob { opacity: 0.3; }
+}
+</style>
+
+</head><body class="body"><div class="section"><div class="nav-desktop"><a href="./" aria-current="page" class="navbar-brand w-nav-brand w--current"><img loading="lazy" src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681c9ae78a04166309dac829_subterra-logo-vertical.svg" alt="" class="image"></a><div class="nav-link-container-desktop"><a href="./" aria-current="page" class="nav-link w--current">about us</a><a href="events/" class="nav-link">events</a><a href="contact/" class="nav-link">contact</a><a href="support/" class="nav-cta-btn">Become a member</a></div><div class="hamburger-container"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/6841905226305be2d9029d7b_subterra-hamburger.svg" loading="lazy" alt="" class="open"></div><div class="hamburger-container closed"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/68419ef1bce6ae69174d6c1b_close-menu.svg" loading="lazy" alt="" class="closed"></div></div><div class="nav-mobile"><div class="w-layout-vflex mobile-link-container"><a href="./" aria-current="page" class="mobile-nav-link w--current" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">ABOUT</a><a href="events/" class="mobile-nav-link" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">EVENTS</a><a href="contact/" class="mobile-nav-link" style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">CONTACT</a><a href="support/" class="mobile-nav-link mobile-cta">Become a member</a></div><div class="halftone-overlay"></div></div><a href="nature-of-sound/" class="nos-banner">
+  <div class="nos-banner-blob left"><img src="images/nature-of-sound/s-pattern.svg" alt=""></div>
+  <div class="nos-banner-blob right"><img src="images/nature-of-sound/s-pattern.svg" alt=""></div>
+  <div class="nos-banner-inner">
+    <img src="images/nature-of-sound/logo-white.svg" alt="Nature of Sound" class="nos-banner-logo">
+    <div class="nos-banner-text">
+      <span class="nos-banner-free">Free festival</span>
+      <span class="nos-banner-meta">19.07.2026 &nbsp;·&nbsp; Lapinlahti, Helsinki &nbsp;·&nbsp; 12–22</span>
+    </div>
+    <span class="nos-banner-arrow">→</span>
+  </div>
+</a><div class="large-ellipse header"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/683deec479ac8599f84f4ea1_ellipse-big-2.svg" loading="lazy" style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-1.54652deg) skew(0deg, 0deg); transform-style: preserve-3d; will-change: transform;" alt="" class="ellipse-header"></div><div class="w-layout-blockcontainer div-h1 w-container"><img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cab8bcf74e2595244ab15_Subterra-Header-home.svg" loading="lazy" alt="" class="header-image"><div class="text-scale-wrapper"><div class="w-embed"><div class="text-scale-content">
   We are a culture &amp;<br>
   arts association<br>
   based in Helsinki

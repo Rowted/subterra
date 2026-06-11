@@ -95,8 +95,19 @@
   padding: 70px 5vw 90px;
 }
 .nos-hero .nos-inner { display: flex; flex-direction: column; align-items: center; }
-.nos-hero-blob-tr { top: -10%; right: -12%; width: clamp(380px, 56vw, 1000px); transform: rotate(14deg); opacity: 0.95; }
-.nos-hero-blob-bl { bottom: -14%; left: -10%; width: clamp(320px, 48vw, 880px); transform: rotate(-160deg); opacity: 0.9; }
+/* One giant S, centered like the poster, with a very slow spin.
+   vmin sizing keeps it filling the viewport on any screen without clipping text readability. */
+@keyframes nos-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.nos-hero-blob-center {
+  top: 50%; left: 50%;
+  width: min(130vmin, 1500px);
+  transform: translate(-50%, -50%);
+  animation: nos-spin 240s linear infinite;
+  opacity: 1;
+}
 .nos-presents {
   font-family: roc-grotesk, sans-serif;
   font-size: clamp(12px, 1.6vw, 16px); font-weight: 700;
@@ -113,10 +124,9 @@
 .nos-hero-meta .nos-date { font-size: clamp(2.2rem, 5vw, 3.4rem); }
 .nos-free-chip {
   margin-top: 40px;
-  background: var(--nos-teal); color: var(--nos-white);
+  color: var(--nos-white);
   font-family: roc-grotesk, sans-serif;
-  font-size: 15px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-  padding: 12px 28px; border-radius: 999px;
+  font-size: 15px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
 }
 .nos-hero-cta {
   margin-top: 36px; display: inline-block;
@@ -130,7 +140,6 @@
 
 /* ── About ── */
 .nos-about { background: var(--nos-white); color: var(--nos-blue); }
-.nos-about-blob { top: 50%; right: -10%; width: clamp(420px, 52vw, 900px); transform: translateY(-50%) rotate(28deg); opacity: 0.1; }
 .nos-about .nos-kicker { color: var(--nos-teal); }
 .nos-facts {
   display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px;
@@ -141,10 +150,14 @@
   border: 2px solid var(--nos-blue); border-radius: 999px; padding: 9px 20px;
 }
 .nos-fact.teal { border-color: var(--nos-teal); color: var(--nos-teal); }
+.nos-about-photo {
+  width: 100%; margin-top: 48px;
+  aspect-ratio: 16 / 9; object-fit: cover;
+  border-radius: 8px; display: block;
+}
 
 /* ── Timetable ── */
 .nos-timetable { background: var(--nos-teal); color: var(--nos-white); }
-.nos-tt-blob { bottom: -18%; left: -8%; width: clamp(380px, 46vw, 820px); transform: rotate(-30deg); opacity: 0.16; }
 .nos-tt-rows { max-width: 760px; }
 .nos-tt-row {
   display: flex; align-items: baseline; gap: 28px;
@@ -165,17 +178,15 @@
 
 /* ── Gallery ── */
 .nos-gallery { background: var(--nos-blue); color: var(--nos-white); }
-.nos-gallery-grid { column-count: 3; column-gap: 14px; }
+.nos-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .nos-gallery-grid img {
-  width: 100%; height: auto; display: block;
-  border-radius: 6px; margin-bottom: 14px;
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  border-radius: 6px;
 }
-@media (max-width: 900px) { .nos-gallery-grid { column-count: 2; } }
-@media (max-width: 540px) { .nos-gallery-grid { column-count: 1; } }
+@media (max-width: 900px) { .nos-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ── Activities ── */
 .nos-activities { background: var(--nos-white); color: var(--nos-blue); }
-.nos-act-blob { top: -14%; left: -8%; width: clamp(360px, 42vw, 760px); transform: rotate(120deg); opacity: 0.09; }
 .nos-act-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 16px; }
 .nos-act-card {
   border: 2px solid var(--nos-blue); border-radius: 10px; padding: 34px 28px;
@@ -191,7 +202,6 @@
 
 /* ── Lineup ── */
 .nos-lineup { background: var(--nos-blue); color: var(--nos-white); }
-.nos-lineup-blob { top: -10%; right: -10%; width: clamp(380px, 46vw, 840px); transform: rotate(60deg); opacity: 0.16; }
 .nos-artist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
 .nos-artist-card img {
   width: 100%; height: auto; display: block; border-radius: 8px;
@@ -207,7 +217,6 @@
   background: var(--nos-teal); border-radius: 8px;
   padding: 44px 36px;
 }
-.nos-djs-card .nos-blob { right: -6%; top: -55%; width: clamp(240px, 30vw, 480px); transform: rotate(200deg); opacity: 0.22; }
 .nos-djs-card h3 {
   font-family: roc-grotesk-condensed, sans-serif;
   font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; text-transform: uppercase;
@@ -235,8 +244,7 @@
 @media (max-width: 600px) {
   .nos-section { padding: 64px 6vw; }
   .nos-hero { min-height: 86vh; }
-  .nos-hero-blob-tr { width: 80vw; right: -26%; opacity: 0.6; }
-  .nos-hero-blob-bl { width: 70vw; left: -24%; opacity: 0.55; }
+  .nos-hero-blob-center { width: 150vmin; }
   .nos-tt-row { gap: 16px; flex-direction: column; }
   .nos-tt-time { flex: none; color: rgba(255,255,255,0.85); font-size: 1.2rem; }
 }
@@ -270,8 +278,7 @@
   <main>
     <!-- ── HERO ── -->
     <header class="nos-section nos-hero">
-      <div class="nos-blob nos-hero-blob-tr"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
-      <div class="nos-blob nos-hero-blob-bl"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
+      <div class="nos-blob nos-hero-blob-center"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-presents">Subterra ry. presents</p>
         <img src="../images/nature-of-sound/logo-white.svg" alt="Nature of Sound" class="nos-logo">
@@ -281,13 +288,12 @@
           <span>Lapinlahti, Helsinki &nbsp;·&nbsp; 12–22</span>
         </div>
         <div class="nos-free-chip">Free entry · everyone welcome</div>
-        <a href="#lineup" class="nos-hero-cta">See the lineup ↓</a>
+        <a href="#lineup" class="nos-hero-cta">Explore ↓</a>
       </div>
     </header>
 
     <!-- ── ABOUT ── -->
     <section class="nos-section nos-about">
-      <div class="nos-blob nos-about-blob"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-kicker">About the festival</p>
         <h2 class="nos-h2">Music, nature<br>&amp; community</h2>
@@ -300,12 +306,12 @@
           <span class="nos-fact">All ages</span>
           <span class="nos-fact teal">Outdoors</span>
         </div>
+        <img src="../images/nature-of-sound/gallery-06.jpg" alt="Nature of Sound 2025 at Lapinlahti" class="nos-about-photo" loading="lazy">
       </div>
     </section>
 
     <!-- ── TIMETABLE ── -->
     <section class="nos-section nos-timetable" id="timetable">
-      <div class="nos-blob nos-tt-blob"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-kicker">Sunday 19 July 2026</p>
         <h2 class="nos-h2">Timetable</h2>
@@ -322,7 +328,6 @@
 
     <!-- ── LINEUP ── -->
     <section class="nos-section nos-lineup" id="lineup">
-      <div class="nos-blob nos-lineup-blob"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-kicker">Live on stage</p>
         <h2 class="nos-h2">Lineup</h2>
@@ -344,7 +349,6 @@
           </div>
         </div>
         <div class="nos-djs-card">
-          <div class="nos-blob"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
           <h3>+ Subterra DJs all day</h3>
           <p>Between and after the live acts, Subterra's own DJs keep the grounds moving, from mellow afternoon selections to a closing set under the evening sky.</p>
         </div>
@@ -353,7 +357,6 @@
 
     <!-- ── ACTIVITIES ── -->
     <section class="nos-section nos-activities">
-      <div class="nos-blob nos-act-blob"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
       <div class="nos-inner">
         <p class="nos-kicker">More than music</p>
         <h2 class="nos-h2">Activities</h2>
@@ -385,7 +388,6 @@
           <img src="../images/nature-of-sound/gallery-03.jpg" alt="Nature of Sound 2025" loading="lazy">
           <img src="../images/nature-of-sound/gallery-04.jpg" alt="Nature of Sound 2025" loading="lazy">
           <img src="../images/nature-of-sound/gallery-05.jpg" alt="Nature of Sound 2025" loading="lazy">
-          <img src="../images/nature-of-sound/gallery-06.jpg" alt="Nature of Sound 2025" loading="lazy">
           <img src="../images/nature-of-sound/gallery-07.jpg" alt="Nature of Sound 2025" loading="lazy">
         </div>
       </div>

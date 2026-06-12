@@ -48,7 +48,7 @@ html, body { height: 100%; background: #111; overflow: hidden; }
   position: absolute; inset: 0;
   background: var(--teal);
   transform: translateY(101%);
-  transition: transform 0.9s cubic-bezier(0.7, 0, 0.2, 1);
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
 }
 #flood.in { transform: translateY(0); }
 
@@ -66,24 +66,24 @@ html, body { height: 100%; background: #111; overflow: hidden; }
 /* generic element animations */
 .scene .el {
   opacity: 0;
-  transform: translateY(70px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  transform: translateY(60px) scale(0.96);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.25);
 }
 .scene.active .el {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 .scene.leaving .el {
   opacity: 0;
-  transform: translateY(-90px);
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.6, 0, 0.8, 0.5);
+  transform: translateY(-70px) scale(1.03);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.6, 0, 0.8, 0.5);
 }
 /* stagger */
-.scene .el:nth-child(1) { transition-delay: 0.10s; }
-.scene .el:nth-child(2) { transition-delay: 0.28s; }
-.scene .el:nth-child(3) { transition-delay: 0.46s; }
-.scene .el:nth-child(4) { transition-delay: 0.64s; }
-.scene .el:nth-child(5) { transition-delay: 0.82s; }
+.scene .el:nth-child(1) { transition-delay: 0.05s; }
+.scene .el:nth-child(2) { transition-delay: 0.15s; }
+.scene .el:nth-child(3) { transition-delay: 0.25s; }
+.scene .el:nth-child(4) { transition-delay: 0.35s; }
+.scene .el:nth-child(5) { transition-delay: 0.45s; }
 .scene.leaving .el { transition-delay: 0s !important; }
 
 /* typography helpers */
@@ -136,10 +136,10 @@ html, body { height: 100%; background: #111; overflow: hidden; }
   text-transform: uppercase; opacity: 0.9;
 }
 /* alternate slide directions for artist cards */
-.scene.from-left  .el.artist-img { transform: translateX(-140px) rotate(-5deg); }
-.scene.from-right .el.artist-img { transform: translateX(140px) rotate(5deg); }
+.scene.from-left  .el.artist-img { transform: translateX(-220px) rotate(-7deg) scale(0.9); }
+.scene.from-right .el.artist-img { transform: translateX(220px) rotate(7deg) scale(0.9); }
 .scene.active.from-left  .el.artist-img,
-.scene.active.from-right .el.artist-img { transform: translateX(0) rotate(0); }
+.scene.active.from-right .el.artist-img { transform: translateX(0) rotate(0) scale(1); }
 
 /* DJ scene */
 #s5 .subterra-logo { width: 420px; }
@@ -194,16 +194,14 @@ html, body { height: 100%; background: #111; overflow: hidden; }
 
     <!-- 1 · intro -->
     <section class="scene" id="s1">
-      <div class="el kicker">Subterra ry presents</div>
-      <div class="el logo gap-m"><img src="../images/nature-of-sound/logo-white.svg" alt="Nature of Sound"></div>
-      <div class="el meta gap-l">19.07.2026 · Lapinlahti, Helsinki</div>
+      <div class="el logo"><img src="../images/nature-of-sound/logo-white.svg" alt="Nature of Sound"></div>
+      <div class="el meta gap-l">19.07.2026 · Lapinlahti</div>
     </section>
 
     <!-- 2 · free festival -->
     <section class="scene" id="s2">
-      <div class="el big">Free<br>music<br>festival</div>
-      <div class="el meta gap-l">Sunday 19 July · 12–22</div>
-      <div class="el pill gap-m">Everyone welcome</div>
+      <div class="el big">Free<br>festival</div>
+      <div class="el pill gap-l">Everyone welcome</div>
     </section>
 
     <!-- 3a · django -->
@@ -269,16 +267,16 @@ html, body { height: 100%; background: #111; overflow: hidden; }
      Each step: [sceneId, holdMs, options]
      teal: flood the background teal and swap to the deep S variant */
   var TIMELINE = [
-    ['s1',  4200, {}],
-    ['s2',  3600, {}],
-    ['s3a', 3400, {}],
-    ['s3b', 3200, {}],
-    ['s3c', 3200, {}],
-    ['s5',  3400, { teal: true }],
-    ['s6',  3800, { teal: true }],
-    ['s7',  4600, {}],
+    ['s1',  2000, {}],
+    ['s2',  1500, {}],
+    ['s3a', 1800, {}],
+    ['s3b', 1700, {}],
+    ['s3c', 1700, {}],
+    ['s5',  1700, { teal: true }],
+    ['s6',  2000, { teal: true }],
+    ['s7',  2400, {}],
   ];
-  var LEAVE_MS = 500;
+  var LEAVE_MS = 280;
 
   var flood = document.getElementById('flood');
   var sbg = document.getElementById('sbg');

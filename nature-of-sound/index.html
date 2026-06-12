@@ -237,6 +237,12 @@ html { scroll-behavior: smooth; }
   margin-top: 26px; position: relative; overflow: hidden;
   background: var(--nos-teal); border-radius: 8px;
   padding: 44px 36px;
+  display: flex; align-items: center; justify-content: space-between; gap: 36px;
+}
+.nos-djs-logo { width: clamp(110px, 14vw, 170px); height: auto; flex-shrink: 0; }
+@media (max-width: 700px) {
+  .nos-djs-card { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .nos-djs-logo { width: 130px; }
 }
 .nos-djs-card h3 {
   font-family: roc-grotesk-condensed, sans-serif;
@@ -374,8 +380,11 @@ html { scroll-behavior: smooth; }
           </div>
         </div>
         <div class="nos-djs-card">
-          <h3>+ Subterra DJs all day</h3>
-          <p>Our own DJs hold it down between the live acts and close out the night. Mellow in the afternoon, louder after dark.</p>
+          <div class="nos-djs-text">
+            <h3>+ Subterra DJs all day</h3>
+            <p>Our own DJs hold it down between the live acts and close out the night. Mellow in the afternoon, louder after dark.</p>
+          </div>
+          <img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cbdf3bdb71b5f56b51057_subterra-logo-vertical.svg" alt="Subterra" class="nos-djs-logo" loading="lazy">
         </div>
       </div>
     </section>

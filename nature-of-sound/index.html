@@ -205,6 +205,28 @@ html { scroll-behavior: smooth; }
 }
 @media (max-width: 900px) { .nos-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 
+/* ── Instagram band ── */
+.nos-ig {
+  background: var(--nos-white); color: var(--nos-blue);
+  text-align: center; padding: 80px 5vw;
+}
+.nos-ig .nos-kicker { color: var(--nos-teal); }
+.nos-ig-link {
+  display: inline-block;
+  font-family: roc-grotesk-condensed, sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700; line-height: 1; text-transform: uppercase;
+  color: var(--nos-blue); text-decoration: none;
+  border-bottom: 4px solid var(--nos-teal); padding-bottom: 10px;
+  transition: opacity .15s ease;
+}
+.nos-ig-link:hover { opacity: 0.7; }
+.nos-ig-sub {
+  font-family: roc-grotesk, sans-serif;
+  font-size: 0.95rem; font-weight: 500; color: var(--nos-blue);
+  opacity: 0.75; margin: 22px 0 0;
+}
+
 /* ── Activities ── */
 .nos-activities { background: var(--nos-teal); color: var(--nos-white); }
 .nos-act-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 16px; }
@@ -386,6 +408,15 @@ html { scroll-behavior: smooth; }
           </div>
           <img src="https://cdn.prod.website-files.com/6807bd3271f17620381bb6fd/681cbdf3bdb71b5f56b51057_subterra-logo-vertical.svg" alt="Subterra" class="nos-djs-logo" loading="lazy">
         </div>
+      </div>
+    </section>
+
+    <!-- ── INSTAGRAM ── -->
+    <section class="nos-ig">
+      <div class="nos-inner">
+        <p class="nos-kicker">Stay in the loop</p>
+        <a href="https://www.instagram.com/subterrary/" target="_blank" rel="noopener" class="nos-ig-link">Follow us on Instagram <span aria-hidden="true">→</span></a>
+        <p class="nos-ig-sub">Lineup drops, schedule changes and behind-the-scenes, all there first.</p>
       </div>
     </section>
 

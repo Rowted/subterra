@@ -119,6 +119,8 @@ html, body { height: 100%; background: #111; overflow: hidden; }
 /* scene 1 logo */
 #s1 .logo { width: 850px; }
 #s1 .logo img { width: 100%; display: block; }
+.free-strip { width: 900px; }
+.free-strip img { width: 100%; display: block; }
 
 /* artist scenes */
 .artist-img {
@@ -192,16 +194,11 @@ html, body { height: 100%; background: #111; overflow: hidden; }
     <div id="flood"></div>
     <div class="s-bg" id="sbg-deep" style="opacity:0;"><img src="../images/nature-of-sound/s-pattern-deep.svg" alt=""></div>
 
-    <!-- 1 · intro -->
+    <!-- 1 · hook: logo, date, free entry -->
     <section class="scene" id="s1">
       <div class="el logo"><img src="../images/nature-of-sound/logo-white.svg" alt="Nature of Sound"></div>
       <div class="el meta gap-l">19.07.2026 · Lapinlahti</div>
-    </section>
-
-    <!-- 2 · free festival -->
-    <section class="scene" id="s2">
-      <div class="el big">Free<br>festival</div>
-      <div class="el pill gap-l">Everyone welcome</div>
+      <div class="el free-strip gap-m"><img src="../images/nature-of-sound/free-entry.svg" alt="Free entry"></div>
     </section>
 
     <!-- 3a · django -->
@@ -267,8 +264,7 @@ html, body { height: 100%; background: #111; overflow: hidden; }
      Each step: [sceneId, holdMs, options]
      teal: flood the background teal and swap to the deep S variant */
   var TIMELINE = [
-    ['s1',  2000, {}],
-    ['s2',  1500, {}],
+    ['s1',  2800, {}],
     ['s3a', 1800, {}],
     ['s3b', 1700, {}],
     ['s3c', 1700, {}],

@@ -1,9 +1,0 @@
-{
-  "name": "nos-reel-export",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Headless capture of the Nature of Sound reel to a 1080x1920 video",
-  "dependencies": {
-    "playwright": "^1.44.0"
-  }
-}

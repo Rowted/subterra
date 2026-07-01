@@ -125,13 +125,13 @@ html, body { height: 100%; background: #111; overflow: hidden; }
 /* FREE ENTRY strip gets its own beat: pops in (after the other lines),
    scales out on exit — distinct from the generic rise of everything else. */
 .scene .el.free-strip {
-  transform: scale(0.5) rotate(-13deg);
+  transform: scale(0.5) rotate(9deg);
   transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 1.25, 0.35, 1.15);
   transition-delay: 0.6s !important;
 }
-.scene.active .el.free-strip { transform: scale(1) rotate(-6deg); }
+.scene.active .el.free-strip { transform: scale(1) rotate(3deg); }
 .scene.leaving .el.free-strip {
-  transform: scale(1.08) rotate(-6deg);
+  transform: scale(1.08) rotate(3deg);
   transition: opacity 0.35s ease, transform 0.35s ease;
   transition-delay: 0s !important;
 }

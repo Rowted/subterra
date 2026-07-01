@@ -1,46 +1,66 @@
-// Records the reel at exactly 1080x1920 using the system Chrome.
-// Prints ONLY the raw video path on stdout (logs go to stderr).
+// Deterministic frame-by-frame capture of the reel.
+// Freezes Chrome's clock (CDP virtual time), advances it exactly 1/FPS per
+// frame, and screenshots each frame as a lossless PNG. Render speed is
+// irrelevant, so the output is perfectly smooth regardless of how heavy the
+// animated background is. Prints the frames dir on stdout (logs to stderr).
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 
-// One full loop of the timeline in reel/index.html:
-//   holds 2800+1800+1700+1700+1700+2000+2400 = 14100
-//   + 7 scene exits * 280ms                   =  1960
-//   ~= 16060ms. Add a small tail so the last frame settles.
-const LOOP_MS = 16100;
-const TAIL_MS = 400;
+const FPS = 30;
+const LOOP_MS = 16100;   // one full timeline loop (see reel/index.html)
+const TAIL_MS = 300;
+const FRAME_MS = 1000 / FPS;
+const N = Math.round((LOOP_MS + TAIL_MS) / FRAME_MS);
 
 (async () => {
   const url = 'file://' + path.resolve(__dirname, '..', 'index.html');
-  const outDir = __dirname;
+  const framesDir = path.join(__dirname, 'frames');
+  fs.rmSync(framesDir, { recursive: true, force: true });
+  fs.mkdirSync(framesDir);
 
-  const browser = await chromium.launch({ channel: 'chrome' });
-  const context = await browser.newContext({
+  const browser = await chromium.launch({
+    channel: 'chrome',
+    args: ['--force-color-profile=srgb', '--hide-scrollbars'],
+  });
+  const page = await browser.newPage({
     viewport: { width: 1080, height: 1920 },
     deviceScaleFactor: 1,
-    recordVideo: { dir: outDir, size: { width: 1080, height: 1920 } },
   });
-  const page = await context.newPage();
-  const video = page.video();
+  const client = await page.context().newCDPSession(page);
 
   console.error('Loading page…');
   await page.goto(url, { waitUntil: 'load' });
-
-  // Let Typekit fonts and images settle before playing.
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(1800);
   try { await page.evaluate(() => document.fonts && document.fonts.ready); } catch (e) {}
 
-  console.error('Playing reel…');
+  // Advance virtual time by `ms`, resolving when that budget is spent.
+  function advance(ms) {
+    return new Promise((resolve) => {
+      client.once('Emulation.virtualTimeBudgetExpired', resolve);
+      client.send('Emulation.setVirtualTimePolicy', {
+        policy: 'advance',
+        budget: ms,
+        maxVirtualTimeTaskStarvationCount: 100000,
+      });
+    });
+  }
+
+  // Freeze the clock, then start the reel timeline under frozen time.
+  await client.send('Emulation.setVirtualTimePolicy', { policy: 'pause' });
   await page.click('#play');
-  await page.waitForTimeout(LOOP_MS + TAIL_MS);
 
-  await context.close(); // finalizes the .webm
+  console.error(`Capturing ${N} frames…`);
+  for (let i = 0; i < N; i++) {
+    await advance(FRAME_MS);
+    await page.screenshot({
+      path: path.join(framesDir, 'f-' + String(i).padStart(4, '0') + '.png'),
+      clip: { x: 0, y: 0, width: 1080, height: 1920 },
+      animations: 'allow',
+    });
+    if (i % 30 === 0) console.error(`  ${i}/${N}`);
+  }
+
   await browser.close();
-
-  const vpath = await video.path();
-  const raw = path.join(outDir, 'raw.webm');
-  if (fs.existsSync(raw)) fs.unlinkSync(raw);
-  fs.renameSync(vpath, raw);
-  console.log(raw); // stdout: the only thing the shell script reads
+  console.log(framesDir);
 })().catch((err) => { console.error(err); process.exit(1); });

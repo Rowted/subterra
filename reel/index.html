@@ -75,8 +75,8 @@ html, body { height: 100%; background: #111; overflow: hidden; }
 }
 .scene.leaving .el {
   opacity: 0;
-  transform: translateY(-70px) scale(1.03);
-  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.6, 0, 0.8, 0.5);
+  transform: translateY(-60px) scale(1.02);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.6, 1);
 }
 /* stagger */
 .scene .el:nth-child(1) { transition-delay: 0.05s; }
@@ -306,18 +306,15 @@ html, body { height: 100%; background: #111; overflow: hidden; }
       scene.classList.add('active');
 
       timer = setTimeout(function() {
+        // Start this scene leaving…
         scene.classList.add('leaving');
-        timer = setTimeout(function() {
-          scene.classList.remove('active', 'leaving');
-          i++;
-          if (i < TIMELINE.length) {
-            step();
-          } else {
-            // loop
-            i = 0;
-            step();
-          }
-        }, LEAVE_MS);
+        (function(prev) {
+          setTimeout(function() { prev.classList.remove('active', 'leaving'); }, 700);
+        })(scene);
+        // …and bring the next scene in at the SAME time, so there is never
+        // a blank frame between scenes (the overlap is what feels smooth).
+        i = (i + 1) % TIMELINE.length;
+        step();
       }, item[1]);
     }
     step();

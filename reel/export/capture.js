@@ -8,8 +8,11 @@ const path = require('path');
 const fs = require('fs');
 
 const FPS = 30;
-const LOOP_MS = 16100;   // one full timeline loop (see reel/index.html)
-const TAIL_MS = 300;
+// Scenes now overlap, so one full loop = the sum of the hold times:
+// 2800 + 1800 + 1700 + 1700 + 1700 + 2000 + 2400 = 14100ms.
+// Stop one frame short of the loop point so playback loops seamlessly.
+const LOOP_MS = 14100;
+const TAIL_MS = 0;
 const FRAME_MS = 1000 / FPS;
 const N = Math.round((LOOP_MS + TAIL_MS) / FRAME_MS);
 
@@ -21,7 +24,21 @@ const N = Math.round((LOOP_MS + TAIL_MS) / FRAME_MS);
 
   const browser = await chromium.launch({
     channel: 'chrome',
-    args: ['--force-color-profile=srgb', '--hide-scrollbars'],
+    args: [
+      '--force-color-profile=srgb',
+      '--hide-scrollbars',
+      // Deterministic sampling: pull every animation onto the main thread and
+      // fully composite each frame before the screenshot, so CSS transitions
+      // advance in exact lockstep with the frozen clock (no compositor lurch).
+      '--disable-threaded-animation',
+      '--disable-threaded-scrolling',
+      '--disable-checker-imaging',
+      '--run-all-compositor-stages-before-draw',
+      '--disable-new-content-rendering-timeout',
+      '--disable-background-timer-throttling',
+      '--disable-renderer-backgrounding',
+      '--disable-backgrounding-occluded-windows',
+    ],
   });
   const page = await browser.newPage({
     viewport: { width: 1080, height: 1920 },

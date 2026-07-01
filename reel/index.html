@@ -287,6 +287,8 @@ html, body { height: 100%; background: #111; overflow: hidden; }
     ['s7',  2400, {}],
   ];
   var LEAVE_MS = 280;
+  var BLANK_MS = 550;   // fully-empty beat at the start and at each loop seam
+  var CLEAR_MS = 450;   // time for the last scene's exit to finish clearing
 
   var flood = document.getElementById('flood');
   var sbg = document.getElementById('sbg');
@@ -319,19 +321,33 @@ html, body { height: 100%; background: #111; overflow: hidden; }
       setTeal(!!item[2].teal);
       scene.classList.add('active');
 
+      var isLast = (i === TIMELINE.length - 1);
+
       timer = setTimeout(function() {
         // Start this scene leaving…
         scene.classList.add('leaving');
         (function(prev) {
           setTimeout(function() { prev.classList.remove('active', 'leaving'); }, 700);
         })(scene);
-        // …and bring the next scene in at the SAME time, so there is never
-        // a blank frame between scenes (the overlap is what feels smooth).
-        i = (i + 1) % TIMELINE.length;
-        step();
+
+        if (isLast) {
+          // At the loop seam: let the last scene fully clear, then hold an
+          // empty (background-only) beat so screen recordings have a clean
+          // cut point before it starts over.
+          setTeal(false);
+          i = 0;
+          timer = setTimeout(step, CLEAR_MS + BLANK_MS);
+        } else {
+          // …bring the next scene in at the same time, so mid-reel there is
+          // never a blank frame (the overlap is what feels smooth).
+          i = i + 1;
+          step();
+        }
       }, item[1]);
     }
-    step();
+
+    // Begin with an empty beat too, so the very first frames are clean.
+    timer = setTimeout(step, BLANK_MS);
   }
 
   document.getElementById('play').addEventListener('click', play);

@@ -1,0 +1,9 @@
+{
+  "name": "nos-reel-export",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Deterministic 1080x1920 capture of the Nature of Sound reel",
+  "dependencies": {
+    "playwright": "^1.44.0"
+  }
+}

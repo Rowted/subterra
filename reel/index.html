@@ -17,10 +17,7 @@
 html, body { height: 100%; background: #111; overflow: hidden; }
 
 /* ── Stage: fixed 1080x1920, scaled to fit the window ── */
-#stage-wrap {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-}
+#stage-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 #stage {
   width: 1080px; height: 1920px;
   position: relative; overflow: hidden;
@@ -29,184 +26,93 @@ html, body { height: 100%; background: #111; overflow: hidden; }
   font-family: roc-grotesk, sans-serif;
 }
 
-/* ── Persistent animated S background ── */
-.s-bg {
+/* ── Animated S backgrounds (inline SVG so JS can drive the wave) ── */
+svg.s-bg {
   position: absolute; top: 50%; left: 50%;
-  width: 3400px; height: auto;
+  width: 3400px; height: 3140px;
   transform: translate(-50%, -50%);
-  animation: spin 240s linear infinite;
-  pointer-events: none;
-  transition: opacity 1s ease;
+  pointer-events: none; display: block;
 }
-@keyframes spin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
-}
-.s-bg img { width: 100%; display: block; }
+#sbg-deep { opacity: 0; }
 
 /* teal flood layer for teal scenes */
-#flood {
-  position: absolute; inset: 0;
-  background: var(--teal);
-  transform: translateY(101%);
-  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1);
-}
-#flood.in { transform: translateY(0); }
+#flood { position: absolute; inset: 0; background: var(--teal); transform: translateY(101%); }
 
-/* ── Scenes ── */
+/* ── Scenes (always present; each element's visibility is driven by JS) ── */
 .scene {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; color: var(--white);
   padding: 90px;
-  opacity: 0; visibility: hidden;
 }
-.scene.active { opacity: 1; visibility: visible; }
-
-/* generic element animations */
-.scene .el {
-  opacity: 0;
-  transform: translateY(60px) scale(0.96);
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.25);
-}
-.scene.active .el {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.scene.leaving .el {
-  opacity: 0;
-  transform: translateY(-60px) scale(1.02);
-  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.6, 1);
-}
-/* stagger */
-.scene .el:nth-child(1) { transition-delay: 0.05s; }
-.scene .el:nth-child(2) { transition-delay: 0.15s; }
-.scene .el:nth-child(3) { transition-delay: 0.25s; }
-.scene .el:nth-child(4) { transition-delay: 0.35s; }
-.scene .el:nth-child(5) { transition-delay: 0.45s; }
-.scene.leaving .el { transition-delay: 0s !important; }
+.scene .el { opacity: 0; will-change: transform, opacity; }
 
 /* typography helpers */
-.kicker {
-  font-size: 34px; font-weight: 700;
-  letter-spacing: 14px; text-transform: uppercase;
-}
-.big {
-  font-family: roc-grotesk-condensed, sans-serif;
-  font-size: 150px; font-weight: 700; line-height: 0.92;
-  text-transform: uppercase;
-}
-.mid {
-  font-family: roc-grotesk-condensed, sans-serif;
-  font-size: 84px; font-weight: 700; line-height: 1;
-  text-transform: uppercase;
-}
-.meta {
-  font-size: 40px; font-weight: 700;
-  letter-spacing: 6px; text-transform: uppercase;
-}
-.pill {
-  display: inline-block;
-  background: var(--deep); color: var(--white);
-  font-size: 36px; font-weight: 700;
-  letter-spacing: 5px; text-transform: uppercase;
-  padding: 26px 60px; border-radius: 999px;
-}
+.kicker { font-size: 34px; font-weight: 700; letter-spacing: 14px; text-transform: uppercase; }
+.big { font-family: roc-grotesk-condensed, sans-serif; font-size: 150px; font-weight: 700; line-height: 0.92; text-transform: uppercase; }
+.mid { font-family: roc-grotesk-condensed, sans-serif; font-size: 84px; font-weight: 700; line-height: 1; text-transform: uppercase; }
+.meta { font-size: 40px; font-weight: 700; letter-spacing: 6px; text-transform: uppercase; }
+.pill { display: inline-block; background: var(--deep); color: var(--white); font-size: 36px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; padding: 26px 60px; border-radius: 999px; }
 .scene .gap-s { margin-top: 40px; }
 .scene .gap-m { margin-top: 70px; }
 .scene .gap-l { margin-top: 110px; }
 
-/* scene 1 logo */
+/* scene 1 logo + free entry strip */
 #s1 .logo { width: 850px; }
 #s1 .logo img { width: 100%; display: block; }
 .free-strip { width: 900px; }
 .free-strip img { width: 100%; display: block; }
-/* FREE ENTRY strip gets its own beat: pops in (after the other lines),
-   scales out on exit — distinct from the generic rise of everything else. */
-.scene .el.free-strip {
-  transform: scale(0.5) rotate(9deg);
-  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.2, 1.25, 0.35, 1.15);
-  transition-delay: 0.6s !important;
-}
-.scene.active .el.free-strip { transform: scale(1) rotate(3deg); }
-.scene.leaving .el.free-strip {
-  transform: scale(1.08) rotate(3deg);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  transition-delay: 0s !important;
-}
 
 /* artist scenes */
-.artist-img {
-  width: 820px; border-radius: 24px;
-  box-shadow: 0 40px 120px rgba(0,0,0,0.35);
-}
+.artist-img { width: 820px; border-radius: 24px; box-shadow: 0 40px 120px rgba(0,0,0,0.35); }
 .artist-img img { width: 100%; display: block; border-radius: 24px; }
-.artist-name {
-  font-family: roc-grotesk-condensed, sans-serif;
-  font-size: 92px; font-weight: 700; line-height: 0.95;
-  text-transform: uppercase;
-}
-.artist-time {
-  font-size: 56px; font-weight: 700; letter-spacing: 5px;
-  text-transform: uppercase; opacity: 0.95;
-}
-/* alternate slide directions for artist cards */
-.scene.from-left  .el.artist-img { transform: translateX(-220px) rotate(-7deg) scale(0.9); }
-.scene.from-right .el.artist-img { transform: translateX(220px) rotate(7deg) scale(0.9); }
-.scene.active.from-left  .el.artist-img,
-.scene.active.from-right .el.artist-img { transform: translateX(0) rotate(0) scale(1); }
+.artist-name { font-family: roc-grotesk-condensed, sans-serif; font-size: 92px; font-weight: 700; line-height: 0.95; text-transform: uppercase; }
+.artist-time { font-size: 56px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; opacity: 0.95; }
 
 /* DJ scene */
 #s5 .subterra-logo { width: 420px; }
 #s5 .subterra-logo img { width: 100%; display: block; }
 
 /* activities list */
-.act-line {
-  font-family: roc-grotesk-condensed, sans-serif;
-  font-size: 96px; font-weight: 700; line-height: 1.05;
-  text-transform: uppercase;
-}
+.act-line { font-family: roc-grotesk-condensed, sans-serif; font-size: 96px; font-weight: 700; line-height: 1.05; text-transform: uppercase; }
 .act-x { font-size: 60px; opacity: 0.8; margin: 18px 0; }
 
 /* outro */
 #s7 .logo { width: 760px; }
 #s7 .logo img { width: 100%; display: block; }
-.url {
-  font-size: 44px; font-weight: 700; letter-spacing: 4px;
-  text-transform: uppercase;
-  border-bottom: 4px solid var(--white); padding-bottom: 10px;
-}
+.url { font-size: 44px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; border-bottom: 4px solid var(--white); padding-bottom: 10px; }
 
-/* ── Controls (hidden while playing) ── */
-#controls {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%); z-index: 50;
-  display: flex; gap: 12px;
-  font-family: -apple-system, sans-serif;
-}
-#controls button {
-  background: #fff; color: #111; border: 0;
-  font-size: 15px; font-weight: 600;
-  padding: 10px 22px; border-radius: 8px; cursor: pointer;
-}
+/* ── Controls ── */
+#controls { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; gap: 12px; font-family: -apple-system, sans-serif; }
+#controls button { background: #fff; color: #111; border: 0; font-size: 15px; font-weight: 600; padding: 10px 22px; border-radius: 8px; cursor: pointer; }
 #controls.hidden { display: none; }
-#hint {
-  position: fixed; top: 18px; left: 50%;
-  transform: translateX(-50%); z-index: 50;
-  color: rgba(255,255,255,0.65);
-  font: 13px -apple-system, sans-serif;
-  text-align: center;
-}
+#hint { position: fixed; top: 18px; left: 50%; transform: translateX(-50%); z-index: 50; color: rgba(255,255,255,0.65); font: 13px -apple-system, sans-serif; text-align: center; }
 #hint.hidden { display: none; }
 </style>
 </head><body>
 
 <div id="stage-wrap">
   <div id="stage">
-    <div class="s-bg" id="sbg"><img src="../images/nature-of-sound/s-pattern.svg" alt=""></div>
+    <svg class="s-bg" id="sbg" viewBox="-200 -200 2495 2300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="wave-light" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+          <feTurbulence id="turb-light" type="fractalNoise" baseFrequency="0.0014 0.0022" numOctaves="2" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <path filter="url(#wave-light)" fill="#149F81" d="M112.319 55.9412C101.029 -5.05727 136.011 -9.7501 199.641 11.449C355.555 63.3755 624.722 275.72 646.258 391.987C685.491 604.092 98.0257 430.189 162.536 778.943C180.831 877.755 262.723 981.368 399.475 1026.93C841.75 1174.26 648.331 177.253 1338.67 407.232C1675.98 519.593 1978.72 816.81 2066.35 1290.44C2177.1 1889.03 1940.45 1949.26 1711.38 1872.94C1523.68 1810.42 1348.44 1637.51 1316.17 1463.18C1303.28 1393.43 1337.6 1385.75 1405.47 1397.47C1597.39 1434.18 1742.83 1365.35 1673.5 990.529C1629.94 755.125 1543.79 611.943 1387.86 559.958C1228.76 506.954 1183.96 603.814 1175.28 895.407C1168.03 1356.57 1106.35 1652.27 689.559 1513.45C349.178 1400.04 86.6056 1078.13 15.6676 694.56C-56.4476 305.097 145.646 236.134 112.319 55.9412Z"/>
+    </svg>
     <div id="flood"></div>
-    <div class="s-bg" id="sbg-deep" style="opacity:0;"><img src="../images/nature-of-sound/s-pattern-deep.svg" alt=""></div>
+    <svg class="s-bg" id="sbg-deep" viewBox="-200 -200 2495 2300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="wave-deep" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+          <feTurbulence id="turb-deep" type="fractalNoise" baseFrequency="0.0014 0.0022" numOctaves="2" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      <path filter="url(#wave-deep)" fill="#0D8269" d="M112.319 55.9412C101.029 -5.05727 136.011 -9.7501 199.641 11.449C355.555 63.3755 624.722 275.72 646.258 391.987C685.491 604.092 98.0257 430.189 162.536 778.943C180.831 877.755 262.723 981.368 399.475 1026.93C841.75 1174.26 648.331 177.253 1338.67 407.232C1675.98 519.593 1978.72 816.81 2066.35 1290.44C2177.1 1889.03 1940.45 1949.26 1711.38 1872.94C1523.68 1810.42 1348.44 1637.51 1316.17 1463.18C1303.28 1393.43 1337.6 1385.75 1405.47 1397.47C1597.39 1434.18 1742.83 1365.35 1673.5 990.529C1629.94 755.125 1543.79 611.943 1387.86 559.958C1228.76 506.954 1183.96 603.814 1175.28 895.407C1168.03 1356.57 1106.35 1652.27 689.559 1513.45C349.178 1400.04 86.6056 1078.13 15.6676 694.56C-56.4476 305.097 145.646 236.134 112.319 55.9412Z"/>
+    </svg>
 
     <!-- 1 · hook: logo, date, free entry -->
     <section class="scene" id="s1">
@@ -261,105 +167,185 @@ html, body { height: 100%; background: #111; overflow: hidden; }
   </div>
 </div>
 
-<div id="hint">1080×1920 reel · record with Cmd+Shift+5 (select the stage area) · R restarts</div>
-<div id="controls">
-  <button id="play">▶ Play reel</button>
-</div>
+<div id="hint">1080×1920 reel · double-click export-reel.command for a clean MP4 · Space plays · R resets</div>
+<div id="controls"><button id="play">▶ Play reel</button></div>
 
 <script>
-  // Fit the 1080x1920 stage into the window
+(function () {
+  // ── Fit the 1080x1920 stage into the window ──
   function fit() {
     var sc = Math.min(innerWidth / 1080, innerHeight / 1920);
     document.getElementById('stage').style.transform = 'scale(' + sc + ')';
   }
   addEventListener('resize', fit); fit();
 
-  /* ── Timeline ──
-     Each step: [sceneId, holdMs, options]
-     teal: flood the background teal and swap to the deep S variant */
-  var TIMELINE = [
-    ['s1',  1600, {}],
-    ['s3a', 1800, {}],
-    ['s3b', 1700, {}],
-    ['s3c', 1700, {}],
-    ['s5',  1700, { teal: true }],
-    ['s6',  2000, { teal: true }],
-    ['s7',  2400, {}],
+  // ── Timeline (all times in ms) ──
+  var scenes = [
+    { id: 's1',  hold: 1600, teal: false },
+    { id: 's3a', hold: 1800, teal: false },
+    { id: 's3b', hold: 1700, teal: false },
+    { id: 's3c', hold: 1700, teal: false },
+    { id: 's5',  hold: 1700, teal: true  },
+    { id: 's6',  hold: 2000, teal: true  },
+    { id: 's7',  hold: 2400, teal: false }
   ];
-  var LEAVE_MS = 280;
-  var BLANK_MS = 550;   // fully-empty beat at the start and at each loop seam
-  var CLEAR_MS = 450;   // time for the last scene's exit to finish clearing
+  var BLANK = 550;   // empty beat before slide 1 / at the loop seam
+  var LEAVE = 400;   // exit duration of the final scene
+  var CLEAR = 500;   // extra empty tail after the final scene clears
+  var FLOOD = 500;   // teal flood slide duration
 
-  var flood = document.getElementById('flood');
+  // onset time of each scene (scenes overlap: next onsets when current leaves)
+  var O = []; var acc = BLANK;
+  for (var i = 0; i < scenes.length; i++) { O[i] = acc; acc += scenes[i].hold; }
+  var lastLeaveEnd = O[scenes.length - 1] + scenes[scenes.length - 1].hold + LEAVE;
+  var L = lastLeaveEnd + CLEAR;   // full loop length
+
+  // ── cubic-bezier easing solver ──
+  function CB(x1, y1, x2, y2) {
+    function A(a, b) { return 1 - 3 * b + 3 * a; }
+    function B(a, b) { return 3 * b - 6 * a; }
+    function C(a) { return 3 * a; }
+    function bez(t, a, b) { return ((A(a, b) * t + B(a, b)) * t + C(a)) * t; }
+    function slope(t, a, b) { return 3 * A(a, b) * t * t + 2 * B(a, b) * t + C(a); }
+    return function (x) {
+      if (x <= 0) return 0; if (x >= 1) return 1;
+      var t = x;
+      for (var i = 0; i < 8; i++) {
+        var xs = bez(t, x1, x2) - x;
+        if (Math.abs(xs) < 1e-5) break;
+        var d = slope(t, x1, x2); if (Math.abs(d) < 1e-6) break;
+        t -= xs / d;
+      }
+      return bez(t, y1, y2);
+    };
+  }
+  var EASE_IN   = CB(0.2, 0.9, 0.3, 1.25);
+  var EASE_OUT  = CB(0.4, 0.0, 0.6, 1.0);
+  var EASE_POP  = CB(0.2, 1.25, 0.35, 1.15);
+  var EASE_CARD = CB(0.2, 0.9, 0.3, 1.12);
+  function smooth(p) { return p * p * (3 - 2 * p); }
+
+  function st(o, tx, ty, rot, sc) { return { o: o, tx: tx, ty: ty, rot: rot, sc: sc }; }
+  function lerp(a, b, p) { return a + (b - a) * p; }
+  function lerpS(f, t, p) {
+    return st(lerp(f.o, t.o, p), lerp(f.tx, t.tx, p), lerp(f.ty, t.ty, p), lerp(f.rot, t.rot, p), lerp(f.sc, t.sc, p));
+  }
+
+  // ── Build a descriptor for every animated element ──
+  var items = [];
+  scenes.forEach(function (sc, si) {
+    var sceneEl = document.getElementById(sc.id);
+    var from = sceneEl.classList.contains('from-left') ? 'left'
+             : sceneEl.classList.contains('from-right') ? 'right' : null;
+    var onset = O[si];
+    var leaveStart = onset + sc.hold;
+    var els = sceneEl.querySelectorAll('.el');
+    els.forEach(function (el, idx) {
+      var d;
+      if (el.classList.contains('free-strip')) {
+        d = { el: el,
+          inFrom: st(0, 0, 0, 9, 0.5), inRest: st(1, 0, 0, 3, 1), outTo: st(0, 0, 0, 3, 1.08),
+          inStart: onset + 600, inDur: 600, inEase: EASE_POP,
+          outStart: leaveStart, outDur: 350, outEase: EASE_OUT };
+      } else if (el.classList.contains('artist-img')) {
+        var tx = from === 'right' ? 220 : -220;
+        var rot = from === 'right' ? 7 : -7;
+        d = { el: el,
+          inFrom: st(0, tx, 0, rot, 0.9), inRest: st(1, 0, 0, 0, 1), outTo: st(0, 0, -60, 0, 1.02),
+          inStart: onset, inDur: 500, inEase: EASE_CARD,
+          outStart: leaveStart, outDur: 400, outEase: EASE_OUT };
+      } else {
+        d = { el: el,
+          inFrom: st(0, 0, 60, 0, 0.96), inRest: st(1, 0, 0, 0, 1), outTo: st(0, 0, -60, 0, 1.02),
+          inStart: onset + 50 + idx * 100, inDur: 400, inEase: EASE_IN,
+          outStart: leaveStart, outDur: 400, outEase: EASE_OUT };
+      }
+      items.push(d);
+    });
+  });
+
+  function stateAt(d, T) {
+    if (T < d.inStart) return d.inFrom;
+    if (T < d.inStart + d.inDur) return lerpS(d.inFrom, d.inRest, d.inEase((T - d.inStart) / d.inDur));
+    if (T < d.outStart) return d.inRest;
+    if (T < d.outStart + d.outDur) return lerpS(d.inRest, d.outTo, d.outEase((T - d.outStart) / d.outDur));
+    return d.outTo;
+  }
+
+  // ── Background + teal flood ──
   var sbg = document.getElementById('sbg');
   var sbgDeep = document.getElementById('sbg-deep');
+  var flood = document.getElementById('flood');
+  var turbLight = document.getElementById('turb-light');
+  var turbDeep = document.getElementById('turb-deep');
+
+  function tealAt(T) {
+    var idx = -1;
+    for (var i = 0; i < O.length; i++) { if (T >= O[i]) idx = i; }
+    if (idx < 0) return 0;
+    var target = scenes[idx].teal ? 1 : 0;
+    var prev = idx === 0 ? 0 : (scenes[idx - 1].teal ? 1 : 0);
+    if (target === prev) return target;
+    var p = Math.min(1, (T - O[idx]) / FLOOD);
+    return prev + (target - prev) * smooth(p);
+  }
+
+  function renderBg(T) {
+    var rot = (T / 240000) * 360;
+    var tf = 'translate(-50%, -50%) rotate(' + rot + 'deg)';
+    sbg.style.transform = tf; sbgDeep.style.transform = tf;
+    var phase = (T % 18000) / 18000;
+    var u = (1 - Math.cos(phase * 2 * Math.PI)) / 2;
+    var bx = (0.0014 + (0.0023 - 0.0014) * u).toFixed(5);
+    var by = (0.0022 + (0.0013 - 0.0022) * u).toFixed(5);
+    turbLight.setAttribute('baseFrequency', bx + ' ' + by);
+    turbDeep.setAttribute('baseFrequency', bx + ' ' + by);
+    var teal = tealAt(T);
+    flood.style.transform = 'translateY(' + ((1 - teal) * 101) + '%)';
+    sbgDeep.style.opacity = teal;
+  }
+
+  function render(T) {
+    T = ((T % L) + L) % L;
+    renderBg(T);
+    for (var k = 0; k < items.length; k++) {
+      var s = stateAt(items[k], T);
+      var el = items[k].el;
+      el.style.opacity = s.o;
+      el.style.transform = 'translate(' + s.tx + 'px,' + s.ty + 'px) rotate(' + s.rot + 'deg) scale(' + s.sc + ')';
+    }
+  }
+
+  // ── Export hooks (used by reel/export/capture.js) ──
+  window.__reelLength = L;      // full loop length in ms
+  window.__reelOffset = BLANK;  // capture starts here so the file opens on slide 1
+  window.__renderAt = render;
+
+  // ── Live preview ──
+  var playing = false, start = null;
   var controls = document.getElementById('controls');
   var hint = document.getElementById('hint');
-  var timer = null;
-
-  function setTeal(on) {
-    flood.classList.toggle('in', on);
-    sbgDeep.style.opacity = on ? 1 : 0;
+  function loop(now) {
+    if (!playing) return;
+    if (start == null) start = now;
+    render(now - start);
+    requestAnimationFrame(loop);
   }
-
-  function clearScenes() {
-    document.querySelectorAll('.scene').forEach(function(sc) {
-      sc.classList.remove('active', 'leaving');
-    });
-  }
-
   function play() {
-    controls.classList.add('hidden');
-    hint.classList.add('hidden');
-    clearScenes();
-    setTeal(false);
-    var i = 0;
-
-    function step() {
-      var item = TIMELINE[i];
-      var scene = document.getElementById(item[0]);
-      setTeal(!!item[2].teal);
-      scene.classList.add('active');
-
-      var isLast = (i === TIMELINE.length - 1);
-
-      timer = setTimeout(function() {
-        // Start this scene leaving…
-        scene.classList.add('leaving');
-        (function(prev) {
-          setTimeout(function() { prev.classList.remove('active', 'leaving'); }, 700);
-        })(scene);
-
-        if (isLast) {
-          // At the loop seam: let the last scene fully clear, then hold an
-          // empty (background-only) beat so screen recordings have a clean
-          // cut point before it starts over.
-          setTeal(false);
-          i = 0;
-          timer = setTimeout(step, CLEAR_MS + BLANK_MS);
-        } else {
-          // …bring the next scene in at the same time, so mid-reel there is
-          // never a blank frame (the overlap is what feels smooth).
-          i = i + 1;
-          step();
-        }
-      }, item[1]);
-    }
-
-    // Begin with an empty beat too, so the very first frames are clean.
-    timer = setTimeout(step, BLANK_MS);
+    controls.classList.add('hidden'); hint.classList.add('hidden');
+    playing = true; start = null; requestAnimationFrame(loop);
   }
-
   document.getElementById('play').addEventListener('click', play);
-  addEventListener('keydown', function(e) {
-    if (e.key === 'r' || e.key === 'R') {
-      clearTimeout(timer);
-      clearScenes();
-      setTeal(false);
-      controls.classList.remove('hidden');
-      hint.classList.remove('hidden');
-    }
+  addEventListener('keydown', function (e) {
     if (e.key === ' ') { e.preventDefault(); play(); }
+    if (e.key === 'r' || e.key === 'R') {
+      playing = false; controls.classList.remove('hidden'); hint.classList.remove('hidden');
+      render(BLANK + 900);
+    }
   });
+
+  // Show a still poster frame (slide 1) until the user presses play.
+  render(BLANK + 900);
+})();
 </script>
 </body></html>

@@ -281,7 +281,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   overflow: hidden;
   background-color: #4666D7;
   text-decoration: none;
-  z-index: 20;
+  /* below the nav (12) and the mobile menu overlay (11) so it can't cover them */
+  z-index: 5;
   transition: filter .2s ease;
 }
 .nos-banner:hover { filter: brightness(1.07); }
